@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Configuration
-public class SpringFoxConfig {
+public class OpenApiConfig {
 
     @Bean
     public GroupedOpenApi publicUserApi() {
@@ -25,8 +25,8 @@ public class SpringFoxConfig {
     }
 
     @Bean
-    public OpenAPI customOpenApi(@Value("${application-description}") String appDescription,
-            @Value("${application-version}") String appVersion) {
+    public OpenAPI customOpenApi(@Value("${application.description}") String appDescription,
+            @Value("${application.version}") String appVersion) {
         return new OpenAPI().info(new Info().title("Application API")
                 .version(appVersion)
                 .description(appDescription)

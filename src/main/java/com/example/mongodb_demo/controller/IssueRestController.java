@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class IssueRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = Issue.class)))) })
-    @GetMapping(value = "/issues", produces = {"application/json"})
+    @GetMapping(value = "/issues", produces = { "application/json" })
     public Collection<Issue> getAll() {
         return issueRepository.findAll();
     }
@@ -45,7 +46,7 @@ public class IssueRestController {
             @ApiResponse(responseCode = "200", description = "Successful operation",
             content = @Content(schema = @Schema(implementation = Issue.class)))
     })
-    @GetMapping(value = "/issues/issue/{id}", produces = ("/application/json"))
+    @GetMapping(value = "/issues/issue/{id}", produces = { "application/json" })
     @ResponseBody
     public Issue getOne(@Parameter(description = "id of the issue to be gotten", required = true)
                             @PathVariable String id) {
@@ -74,7 +75,7 @@ public class IssueRestController {
             @ApiResponse(responseCode = "200", description = "successful operation",
             content = @Content(schema = @Schema(implementation = Issue.class)))
     })
-    @PostMapping(value = "/issues/issue", produces = "application/json")
+    @PostMapping(value = "/issues/issue", consumes = {"application/json"})
     @ResponseBody
     public Issue saveOne(@Parameter(description = "Issue to save", required = true,
             content = @Content(schema = @Schema(implementation = Issue.class)))
@@ -87,7 +88,7 @@ public class IssueRestController {
             @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "bad request")
     })
-    @PutMapping(value = "/issues/issue/update/{id}")
+    @PutMapping(value = "/issues/issue/update/{id}", consumes = { "application/json" })
     public ResponseEntity updateOne(@Parameter(description = "Issue with id to be update", required = true)
                                         @PathVariable String id,
                                     @Parameter(description = "Issue to update", required = true,
